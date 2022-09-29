@@ -8,6 +8,7 @@ public class HealthSystem : MonoBehaviour
     public int maxHealth = 100;
     [SerializeField] private HealthBar healthBar;
     public int damage = 10;
+    private int boss_damage;
     public GameObject player;
    
     // Start is called before the first frame update
@@ -25,16 +26,17 @@ public class HealthSystem : MonoBehaviour
         }
     }
 
-    private void TakeDamage(int damage)
+    public void TakeDamage(int damage)
     {
-        maxHealth -= damage;
-        healthBar.SetHealth(maxHealth);
+        //maxHealth -= damage;
+        //healthBar.SetHealth(maxHealth);
+        boss_damage = damage;
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "enemy")
+        if (other.tag == "weapon")
         {
-            maxHealth -= damage;
+            maxHealth -= boss_damage;
             healthBar.SetHealth(maxHealth);
         }
     }
