@@ -30,12 +30,15 @@ public class Shot : MonoBehaviour
             {
                 GameManager.Instance.gunAmmo--;
 
-                RaycastHit hit;
+                
                 GameObject newBullet;
                 newBullet = Instantiate(bullet, spawnPoint.position, cameraTransform.rotation);
                 soundControl.PlayOneShot(soundShoot);
                 Bullet bulletController = newBullet.GetComponent<Bullet>();
-                if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out hit, Mathf.Infinity))
+                int ignoreRaycastLayer = 1 << 2;
+                ignoreRaycastLayer = ~ignoreRaycastLayer;
+                RaycastHit hit;
+                if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out hit, Mathf.Infinity, ignoreRaycastLayer))
                 {
                     bulletController.target = hit.point;
                     bulletController.hit = true;
